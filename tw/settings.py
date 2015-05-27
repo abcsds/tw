@@ -37,6 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'twitter_stream',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -76,8 +77,15 @@ WSGI_APPLICATION = 'tw.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'local',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+        },
     }
 }
 
@@ -100,3 +108,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# https://docs.djangoproject.com/en/dev/ref/settings/#std:setting-STATIC_ROOT
+STATIC_ROOT = os.path.join(BASE_DIR, 'etc/static_collected')
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'etc/static'),
+)
+
+TEMPLATE_DIRS = (
+    os.path.join(BASE_DIR, 'etc/templates'),
+)
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'etc/uploads')
