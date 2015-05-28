@@ -38,6 +38,9 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'twitter_stream',
+    'django.contrib.humanize',
+    'bootstrap3',
+    'jsonview',
 )
 
 MIDDLEWARE_CLASSES = (
