@@ -53,3 +53,43 @@ tw/tw/common/
 	    'django.contrib.auth',
 	    ...
 	)
+
+## Steps to create this app:
+### Created Virtualenv with virtualenvwrapper:
+
+mkvirtualenv -p /usr/local/bin/python -i django -i tweepy -a ~/Sites tw
+
+### Installed Django-Tweeter-Stream:
+
+pip install -e git+https://github.com/michaelbrooks/django-twitter-stream.git#egg=django-twitter-stream
+
+### Ran Generator-Django-webapp:
+
+yo django-webapp
+
+### Install npm and bower:
+
+cd etc/;npm install;bower install;
+
+### Build statics:
+
+grunt
+
+### Add bower components:
+
+bower install --save jquery
+grunt bowerInstall
+
+### Add MySQL-python:
+
+pip install mysql-python
+
+### Create SuperUser:
+
+python manage.py createsuperuser
+
+### Run server:
+
+python manage.py runserver
+
+### Get Tweeter API key and add it to the db

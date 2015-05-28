@@ -37,8 +37,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'twitter_stream',
     'django.contrib.humanize',
+    'twitter_stream',
     'bootstrap3',
     'jsonview',
 )
