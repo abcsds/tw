@@ -28,7 +28,8 @@ CREATE TABLE `dashboard_sentweet` (
 CREATE TABLE `dashboard_wordscore` (
     `id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
     `word` varchar(200) NOT NULL,
-    `score` integer NOT NULL);
+    `score` integer NOT NULL
+);
 CREATE INDEX `dashboard_sentweet_fde81f11` ON `dashboard_sentweet` (`created_at`);
 
 COMMIT;

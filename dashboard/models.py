@@ -6,7 +6,8 @@ class SenTweet(AbstractTweet):
 
 
 class WordScore(models.Model):
-    word = models.CharField(max_length=200)
-    score = models.IntegerField(default=0)
+    word      = models.CharField(max_length=200)
+    score     = models.IntegerField(default=0)
+    frequency = models.IntegerField(default=0)
     def __unicode__(self):
-        return [self.word, self.score]
+        return [self.word, self.score, frequency]
