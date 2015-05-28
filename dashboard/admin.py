@@ -1,3 +1,4 @@
 from django.contrib import admin
-
-# Register your models here.
+from .models import SenTweet, WordScore
+admin.site.register(SenTweet)
+admin.site.register(WordScore)
