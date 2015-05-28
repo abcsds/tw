@@ -41,6 +41,7 @@ INSTALLED_APPS = (
     'twitter_stream',
     'bootstrap3',
     'jsonview',
+    'dashboard',
 )
 
 MIDDLEWARE_CLASSES = (
