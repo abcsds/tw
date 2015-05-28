@@ -74,7 +74,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'tw.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
@@ -124,3 +123,5 @@ TEMPLATE_DIRS = (
 )
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'etc/uploads')
+
+TWITTER_STREAM_TWEET_MODEL = 'dashboard.SenTweet'
