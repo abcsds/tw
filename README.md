@@ -1,5 +1,8 @@
-About directory structure:
+# Tw
+A twitter sentiment analisis app on django.
 
+## About directory structure:
+```
 tw
   |= fabfile    <-- Fabric runtime files
   |= requirements    <-- Python virtualenv requirements
@@ -20,23 +23,23 @@ tw
       |= common    <-- A special app which injects project-wise functionalities. See below for details
       |= apps    <-- Apps created by you (Run `django-admin.py startapp <your_app_name>` here)
       \= utils    <-- Utilities modules written by you
+```
 
 
+## Details of some directories:
 
-Details of some directories:
-
-tw/tw/my/
+`tw/tw/my/`
 
   This directory holds project information which should be kept out of a cooperative repo, e.g. the production SECRET_KEY, or local development settings file. However, you can version-control this directory by committing it into an independent private repo.
 
   These files are for soft-linking in other places. Also, keep the symbolic links out of Git.
 
 
-tw/tw/common/
+`tw/tw/common/`
 
   This directory holds a special Django app which injects project-wise functionalities written by you.
 
-  Common usage:
+## Common usage:
 
   * Management commands
   * Template tags
@@ -54,7 +57,8 @@ tw/tw/common/
 	    ...
 	)
 
-## Steps to create this app:
+## Steps taken to create this app:
+
 ### Created Virtualenv with virtualenvwrapper:
 
 mkvirtualenv -p /usr/local/bin/python -i django -i tweepy -a ~/Sites tw
