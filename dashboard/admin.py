@@ -37,6 +37,12 @@ class WordScoreAdmin(admin.ModelAdmin):
 
     list_display = ('word', 'score')
     search_fields = ['word']
+class StopWordAdmin(admin.ModelAdmin):
+    fields = ['word']
+
+    list_display = ('word')
+    search_fields = ['word']
 
 admin.site.register(SenTweet, SenTweetAdmin)
 admin.site.register(WordScore, WordScoreAdmin)
+admin.site.register(StopWord, StopWordAdmin)
