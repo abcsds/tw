@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import SenTweet, WordScore
+from .models import *
 
 class SenTweetAdmin(admin.ModelAdmin):
     fieldsets = [
@@ -40,7 +40,6 @@ class WordScoreAdmin(admin.ModelAdmin):
 class StopWordAdmin(admin.ModelAdmin):
     fields = ['word']
 
-    list_display = ('word')
     search_fields = ['word']
 
 admin.site.register(SenTweet, SenTweetAdmin)

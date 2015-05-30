@@ -19,4 +19,4 @@ class WordScore(models.Model):
 class StopWord(models.Model):
     word      = models.CharField(max_length=200)
     def __unicode__(self):
-        return [self.word]
+        return self.word
