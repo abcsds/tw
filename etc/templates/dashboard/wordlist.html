@@ -23,11 +23,11 @@
 
         {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
-        <form action="{% url 'dashboard:uploadWordlist' %}" method="post">
+        <form action="{% url 'dashboard:uploadWordlist' %}" enctype="multipart/form-data" method="POST">
         {% csrf_token %}
 
             <label for="list">Select a file:</label>
-            <input type="file" name="wordlist" id="list">
+            <input type="FILE" name="wordlist" id="list">
             <input type="submit" value="Upload" />
         </form>
 

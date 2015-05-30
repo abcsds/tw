@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-from django import forms
 from .models import *
 
 
@@ -36,8 +35,17 @@ def wordlist(request):
     return render(request, 'dashboard/wordlist.html', {})
 
 def uploadWordlist(request):
-    # request.FILES['wordlist']
-    # import pdb; pdb.set_trace()
+    if request.FILES == {}:
+        return render(request, 'dashboard/wordlist.html', { 'error_message' : "File not uploaded; try again."})
+    for line in request.FILES['wordlist']:
+        term, s  = line.split("\t")  # The file is tab-delimited. "\t" means "tab character"
+        model = WordScore(word=term,score=int(s),frequency=0)
+        try:
+            # import pdb; pdb.set_trace()
+            model.validate_unique()
+            model.save()
+        except:
+            continue
     return redirect('dashboard:dashboard')
 
 # View form to upload file
@@ -46,6 +54,14 @@ def stopwords(request):
 
 # Upload a stopwords.csv
 def uploadStopwords(request):
-    # request.FILES['stopword']
-    # import pdb; pdb.set_trace()
+    if request.FILES == {}:
+        return render(request, 'dashboard/wordlist.html', { 'error_message' : "File not uploaded; try again."})
+    for line in request.FILES['stopwords']:
+        model = WordScore(word=line)
+        try:
+            # import pdb; pdb.set_trace()
+            model.validate_unique()
+            model.save()
+        except:
+            continue
     return redirect('dashboard:dashboard')

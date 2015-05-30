@@ -23,11 +23,11 @@
 
         {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
-        <form action="{% url 'dashboard:uploadStopwords' %}" method="post">
+        <form action="{% url 'dashboard:uploadStopwords' %}" enctype="multipart/form-data" method="POST">
         {% csrf_token %}
 
             <label for="list">Select a file:</label>
-            <input type="file" name="stopword" id="list">
+            <input type="FILE" name="stopword" id="list">
             <input type="submit" value="Upload" />
         </form>
 

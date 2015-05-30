@@ -10,13 +10,13 @@ class SenTweet(AbstractTweet):
             return
 
 class WordScore(models.Model):
-    word      = models.CharField(max_length=200)
+    word      = models.CharField(max_length=200, unique=True)
     score     = models.IntegerField(default=0)
     frequency = models.IntegerField(default=0, null=True)
     def __unicode__(self):
         return self.word + " " + str(self.score)
 
 class StopWord(models.Model):
-    word      = models.CharField(max_length=200)
+    word      = models.CharField(max_length=200, unique=True)
     def __unicode__(self):
         return self.word
