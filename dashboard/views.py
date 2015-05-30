@@ -32,8 +32,9 @@ def dashboard(request):
                     words = text.split(" ")
                     tweetScore = 0
                     for word in words:
-                        if word in WordScore.objects.all():
-                            tweetScore += word.score
+                        for obj in WordScore.objects.all():
+                            if word == obj.word:
+                                tweetScore += obj.score
                     tweet.sentiment = tweetScore
                 except:
                     tweet.sentiment = 0
