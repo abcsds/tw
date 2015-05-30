@@ -22,11 +22,11 @@
         {% if tweets %}
             <ul>
             {% for tweet in tweets %}
-                <li>{{ tweet.text }}</li>
+                <li>{{ tweet.text }} <em>{{tweet.sentiment}}</em></li>
             {% endfor %}
             </ul>
         {% else %}
-            <p>No polls are available.</p>
+            <p>No tweets are available.</p>
         {% endif %}
     </body>
 </html>
