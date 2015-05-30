@@ -19,8 +19,8 @@
     </head>
     <body>
         <h1>Tweets and sentiments</h1>
-        <button><a href="{% url 'dashboard:Wordlist' %}">Upload a Word-Score list file</a></button>
-        <button><a href="{% url 'dashboard:Stopwords' %}">Upload a Stop Words list file</a></button>
+        <button><a href="{% url 'dashboard:wordlist' %}">Upload a Word-Score list file</a></button>
+        <button><a href="{% url 'dashboard:stopwords' %}">Upload a Stop Words list file</a></button>
         {% if tweets %}
             <ul>
             {% for tweet in tweets %}

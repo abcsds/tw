@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django import forms
 from .models import *
 
@@ -33,19 +33,19 @@ def dashboard(request):
 
 # View form to upload file
 def wordlist(request):
-    return render(request, 'dashboard/wordlist.html', context)
+    return render(request, 'dashboard/wordlist.html', {})
 
 def uploadWordlist(request):
-    # request.FILES
-    import pdb; pdb.set_trace()
-    pass
+    # request.FILES['wordlist']
+    # import pdb; pdb.set_trace()
+    return redirect('dashboard:dashboard')
 
 # View form to upload file
 def stopwords(request):
-    return render(request, 'dashboard/stopwords.html', context)
+    return render(request, 'dashboard/stopwords.html', {})
 
 # Upload a stopwords.csv
 def uploadStopwords(request):
-    # request.FILES
-    import pdb; pdb.set_trace()
-    pass
+    # request.FILES['stopword']
+    # import pdb; pdb.set_trace()
+    return redirect('dashboard:dashboard')
