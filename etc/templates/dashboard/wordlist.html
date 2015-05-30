@@ -18,17 +18,18 @@
         <!-- endbuild -->
     </head>
     <body>
-        <h1>Tweets and sentiments</h1>
-        <button><a href="{% url 'dashboard:Wordlist' %}">Upload a Word-Score list file</a></button>
-        <button><a href="{% url 'dashboard:Stopwords' %}">Upload a Stop Words list file</a></button>
-        {% if tweets %}
-            <ul>
-            {% for tweet in tweets %}
-                <li>{{ tweet.text }} <em>{{tweet.sentiment}}</em></li>
-            {% endfor %}
-            </ul>
-        {% else %}
-            <p>No tweets are available.</p>
-        {% endif %}
+        <h1>Upload a Word-Score list</h1>
+
+
+        {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+        <form action="{% url 'dashboard:uploadWordlist' %}" method="post">
+        {% csrf_token %}
+
+            Select a file: <input type="file" name="wordlist">
+        <input type="submit" value="Upload" />
+        </form>
+
+
     </body>
 </html>

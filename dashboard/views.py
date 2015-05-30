@@ -1,20 +1,7 @@
 from django.shortcuts import render
-# from django.http import HttpResponse
-# from django.template import RequestContext, loader
-# from django.core import serializers
+from django import forms
 from .models import *
 
-# API for json
-# def dashboard(request):
-#     tweets = []
-#     for tweet in SenTweet.objects.all():
-#         if tweet.lang == 'en':
-#             tweets.append(tweet)
-#         else:
-#             # delete object
-#             pass
-#     tweets = serializers.serialize("json", tweets, fields=('user_screen_name','text'))
-#     return HttpResponse(tweets)
 
 def dashboard(request):
     tweets = []
@@ -28,7 +15,6 @@ def dashboard(request):
                 try:
                     for stopWord in StopWord.objects.all():
                         text = text.replace(stopWord.word," ")
-                        # import pdb; pdb.set_trace()
                     words = text.split(" ")
                     tweetScore = 0
                     for word in words:
@@ -45,12 +31,21 @@ def dashboard(request):
     context = {'tweets': tweets}
     return render(request, 'dashboard/dashboard.html', context)
 
-# # Upload a wordlist.csv
-# def uploadWordlist(request):
-#
-#     pass
+# View form to upload file
+def wordlist(request):
+    return render(request, 'dashboard/wordlist.html', context)
 
-# # Upload a stopwords.csv
-# def uploadStopwords(request):
-#
-#     pass
+def uploadWordlist(request):
+    # request.FILES
+    import pdb; pdb.set_trace()
+    pass
+
+# View form to upload file
+def stopwords(request):
+    return render(request, 'dashboard/stopwords.html', context)
+
+# Upload a stopwords.csv
+def uploadStopwords(request):
+    # request.FILES
+    import pdb; pdb.set_trace()
+    pass
