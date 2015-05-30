@@ -22,19 +22,34 @@ def dashboard(request):
         for tweet in SenTweet.objects.all():
             if tweet.lang == 'en':
                 tweets.append(tweet)
+                text = tweet.text
+
+                # Sentiment analisis
+                try:
+                    for stopWord in StopWord.objects.all():
+                        text = text.replace(stopWord.word," ")
+                        # import pdb; pdb.set_trace()
+                    words = text.split(" ")
+                    tweetScore = 0
+                    for word in words:
+                        if word in WordScore.objects.all():
+                            tweetScore += word.score
+                    tweet.sentiment = tweetScore
+                except:
+                    tweet.sentiment = 0
+            else:
+                tweet.delete()
     except SenTweet.DoesNotExist:
         raise Http404("No tweets found: run stream.")
     context = {'tweets': tweets}
     return render(request, 'dashboard/dashboard.html', context)
 
-# # Update all scores
-# def updateScores(request):
-#     for word in WordScore.objects.all():
-#         #update word score
-#         pass
-#     pass
-#
 # # Upload a wordlist.csv
 # def uploadWordlist(request):
+#
+#     pass
+
+# # Upload a stopwords.csv
+# def uploadStopwords(request):
 #
 #     pass
