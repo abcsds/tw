@@ -29,7 +29,7 @@ class SenTweetAdmin(admin.ModelAdmin):
                                         'classes': ['collapse']
                             }),
     ]
-    list_display = ('user_screen_name', 'created_at', 'lang')
+    list_display = ('user_screen_name', 'created_at', 'lang', 'sentiment')
     list_filter = ['lang']
     search_fields = ['user_screen_name']
 class WordScoreAdmin(admin.ModelAdmin):
