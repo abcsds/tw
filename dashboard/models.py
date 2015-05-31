@@ -28,3 +28,8 @@ class StopWord(models.Model):
     word      = models.CharField(max_length=200, unique=True)
     def __unicode__(self):
         return self.word
+
+class OverallScore(models.Model):
+    score      = models.IntegerField(default=0, null=True)
+    def __unicode__(self):
+        return str(self.score)
