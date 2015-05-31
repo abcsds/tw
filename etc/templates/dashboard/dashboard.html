@@ -3,7 +3,7 @@
         <meta charset="utf-8">
         <title>TW</title>
         <meta name="description" content="abcsds-tw twitter sentiment app">
-        <meta name="viewport" content="width=device-width">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         {% load staticfiles %}
         <link rel="shortcut icon" href="{% static "images/favicon.ico" %}">
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -11,24 +11,117 @@
 
         <!-- endbuild -->
         <!-- build:css(.tmp) styles/main.css -->
+        <link rel="stylesheet" href="{% static "bower_components/bootstrap/dist/css/bootstrap-theme.min.css" %}">
+        <link rel="stylesheet" href="{% static "bower_components/bootstrap/dist/css/bootstrap.min.css" %}">
         <link rel="stylesheet" href="{% static "styles/main.css" %}">
         <!-- endbuild -->
         <!-- build:js scripts/vendor/modernizr.js -->
         <script src="{% static "bower_components/modernizr/modernizr.js" %}"></script>
+        <script src="{% static "bower_components/bootstrap/dist/js/bootstrap.min.js" %}"></script>
         <!-- endbuild -->
     </head>
     <body>
-        <h1>Tweets and sentiments</h1>
-        <button><a href="{% url 'dashboard:wordlist' %}">Upload a Word-Score list file</a></button>
-        <button><a href="{% url 'dashboard:stopwords' %}">Upload a Stop Words list file</a></button>
-        {% if tweets %}
-            <ul>
-            {% for tweet in tweets %}
-                <li>{{ tweet.text }} <em>{{tweet.sentiment}}</em></li>
-            {% endfor %}
-            </ul>
-        {% else %}
-            <p>No tweets are available.</p>
-        {% endif %}
+        <header>
+            <nav class="navbar navbar-default navbar-fixed-top">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="{% url 'dashboard:dashboard' %}">TW</a>
+                    </div>
+
+                    <div class="collapse navbar-collapse">
+                      <ul class="nav navbar-nav navbar-right">
+                          <li><a href="/admin">Admin <span class="sr-only">(current)</span></a></li>
+                          <li><a href="/stream">Stream</a></li>
+                      </ul>
+                    </div><!-- /.navbar-collapse -->
+
+                </div>
+            </nav>
+        </header>
+
+        <br>
+
+        <div class="page-header">
+            <h1 class="text-center">Tweets and sentiments</h1>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="container-fluid">
+                    <div class="jumbotron">
+                        <h3 class="text-justify">
+                            This is a small app to retrieve the overall and specific sentiment for a term on twitter. Don't forget to initialize a term in the admin pannel and start streaming. Everytime you load the dashboard you'll update the sentiments.
+                            <br>
+                            For this application to work you will need to supply a wordlist with sentiment scores, and if you whish, a list with stopwords.
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 text-center">
+                <a href="{% url 'dashboard:wordlist' %}" class=" btn-primary btn-lg">Upload a Word-Score list file</a>
+            </div>
+            <div class="col-md-6 text-center">
+                <a href="{% url 'dashboard:stopwords' %}" class=" btn-primary btn-lg">Upload a Stop Words list file</a>
+            </div>
+        </div>
+    <br>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+
+                {% if overall > 0 %}
+                    <h2 class="text-center bg-success">Overall sentiment: Positive</h2>
+                {% elif overall == 0 %}
+                    <h2 class="text-center bg-info">Overall sentiment: Neutral</h2>
+                {% else %}
+                    <h2 class="text-center bg-danger">Overall sentiment: Negative</h2>
+                {% endif %}
+
+            </div>
+            <div class="col-md-8 col-md-offset-2">
+                {% if tweets %}
+                    <div class="table-responsive">
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>Tweet</th>
+                                <th>Sentiment</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                        {% for tweet in tweets %}
+                            <tr>
+                                <td><a href="http://twitter.com/{{ tweet.user_screen_name }}">{{ tweet.user_screen_name }}</a></td>
+                                <td>{{ tweet.text }}</td>
+                                {% if tweet.sentiment > 0 %}
+                                    <td class="success text-center">{{tweet.sentiment}}</td>
+                                {% elif tweet.sentiment == 0 %}
+                                    <td class="info text-center">{{tweet.sentiment}}</td>
+                                {% else %}
+                                    <td class="danger text-center">{{tweet.sentiment}}</td>
+                                {% endif %}
+
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    </div>
+
+                {% else %}
+                    <p class="alert alert-danger">No tweets are available.</p>
+                {% endif %}
+                </div>
+        </div>
     </body>
 </html>
