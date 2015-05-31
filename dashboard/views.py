@@ -3,37 +3,8 @@ from .models import *
 
 
 def dashboard(request):
-    tweets = []
-    overall = 0
-    try:
-        for tweet in SenTweet.objects.all():
-            if tweet.lang == 'en':
-                tweets.append(tweet)
-                text = tweet.text
-
-                # Sentiment analisis
-                if not tweet.sentiment:
-                    try:
-                        # for stopWord in StopWord.objects.all():
-                        #     text = text.replace(stopWord.word," ")
-                        words = text.split(" ")
-                        tweetScore = 0
-                        for word in words:
-                            for obj in WordScore.objects.all():
-                                if word == obj.word:
-                                    tweetScore += obj.score
-                        tweet.sentiment = tweetScore
-                        overall += tweetScore
-                        tweet.save()
-                    except:
-                        raise NameError('Twit score will be 0')
-                        tweet.sentiment = 0
-            else:
-                tweet.delete()
-    except SenTweet.DoesNotExist:
-        raise Http404("No tweets found: run stream.")
-    context = {'tweets': tweets, 'overall': overall}
-    return render(request, 'dashboard/dashboard.html', context)#{'tweets': SenTweet.objects.all(), 'overall':0})
+    context = {'tweets': SenTweet.objects.all(), 'overall': OverallScore.objects.all()}
+    return render(request, 'dashboard/dashboard.html', context)
 
 # View form to upload file
 def wordlist(request):

@@ -77,15 +77,15 @@
 
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-
-                {% if overall > 0 %}
-                    <h2 class="text-center bg-success">Overall sentiment: Positive</h2>
-                {% elif overall == 0 %}
-                    <h2 class="text-center bg-info">Overall sentiment: Neutral</h2>
-                {% else %}
-                    <h2 class="text-center bg-danger">Overall sentiment: Negative</h2>
-                {% endif %}
-
+                {% for score in overall %}
+                    {% if overall > 0 %}
+                        <h2 class="text-center bg-success">Overall sentiment: Positive</h2>
+                    {% elif overall == 0 %}
+                        <h2 class="text-center bg-info">Overall sentiment: Neutral</h2>
+                    {% else %}
+                        <h2 class="text-center bg-danger">Overall sentiment: Negative</h2>
+                    {% endif %}
+                {% endfor %}
             </div>
             <div class="col-md-8 col-md-offset-2">
                 {% if tweets %}
