@@ -4,6 +4,7 @@ from .models import *
 
 def dashboard(request):
     tweets = []
+    overall = 0
     try:
         for tweet in SenTweet.objects.all():
             if tweet.lang == 'en':
@@ -11,24 +12,28 @@ def dashboard(request):
                 text = tweet.text
 
                 # Sentiment analisis
-                try:
-                    for stopWord in StopWord.objects.all():
-                        text = text.replace(stopWord.word," ")
-                    words = text.split(" ")
-                    tweetScore = 0
-                    for word in words:
-                        for obj in WordScore.objects.all():
-                            if word == obj.word:
-                                tweetScore += obj.score
-                    tweet.sentiment = tweetScore
-                except:
-                    tweet.sentiment = 0
+                if not tweet.sentiment:
+                    try:
+                        # for stopWord in StopWord.objects.all():
+                        #     text = text.replace(stopWord.word," ")
+                        words = text.split(" ")
+                        tweetScore = 0
+                        for word in words:
+                            for obj in WordScore.objects.all():
+                                if word == obj.word:
+                                    tweetScore += obj.score
+                        tweet.sentiment = tweetScore
+                        overall += tweetScore
+                        tweet.save()
+                    except:
+                        raise NameError('Twit score will be 0')
+                        tweet.sentiment = 0
             else:
                 tweet.delete()
     except SenTweet.DoesNotExist:
         raise Http404("No tweets found: run stream.")
-    context = {'tweets': tweets}
-    return render(request, 'dashboard/dashboard.html', context)
+    context = {'tweets': tweets, 'overall': overall}
+    return render(request, 'dashboard/dashboard.html', context)#{'tweets': SenTweet.objects.all(), 'overall':0})
 
 # View form to upload file
 def wordlist(request):
@@ -55,7 +60,7 @@ def stopwords(request):
 # Upload a stopwords.csv
 def uploadStopwords(request):
     if request.FILES == {}:
-        return render(request, 'dashboard/wordlist.html', { 'error_message' : "File not uploaded; try again."})
+        return render(request, 'dashboard/stopwords.html', { 'error_message' : "File not uploaded; try again."})
     for line in request.FILES['stopwords']:
         model = WordScore(word=line)
         try:

@@ -2,9 +2,17 @@ from django.db import models
 from twitter_stream.models import AbstractTweet
 
 class SenTweet(AbstractTweet):
-    sentiment = models.IntegerField(default=0)
+    sentiment = models.IntegerField(null=True)
     def save(self, *args, **kwargs):
         if self.lang == 'en' or self.lang == u'en':
+            text = self.text
+            words = text.split(" ")
+            tweetScore = 0
+            for word in words:
+                for obj in WordScore.objects.all():
+                    if word == obj.word:
+                        tweetScore += obj.score
+            self.sentiment = tweetScore
             super(SenTweet, self).save(*args, **kwargs) # Call the "real" save() method.
         else:
             return
