@@ -88,6 +88,14 @@
 
             </div>
             <div class="col-md-8 col-md-offset-2">
+                <h2 class="text-justify">The terms being analized are: 
+                {% for term in terms %}
+                    {{ term }},
+                {% endfor %}
+                </h2>
+
+            </div>
+            <div class="col-md-8 col-md-offset-2">
                 {% if tweets %}
                     <div class="table-responsive">
                     <table class="table table-condensed">

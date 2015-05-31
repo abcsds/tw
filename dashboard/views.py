@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import *
+from twitter_stream.models import FilterTerm
 
 
 def dashboard(request):
@@ -33,7 +34,7 @@ def dashboard(request):
         raise Http404("No tweets found: run stream.")
     for tweet in SenTweet.objects.all():
         overall += tweet.sentiment
-    context = {'tweets': tweets, 'overall': overall}
+    context = {'tweets': tweets, 'overall': overall, 'terms': FilterTerm.objects.all()}
     return render(request, 'dashboard/dashboard.html', context)#{'tweets': SenTweet.objects.all(), 'overall':0})
 
 # View form to upload file
