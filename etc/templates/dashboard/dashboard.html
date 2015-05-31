@@ -87,6 +87,15 @@
                     {% endif %}
                 {% endfor %}
             </div>
+            <br>
+            <div class="col-md-8 col-md-offset-2">
+                <h3> The terms being used are:
+                {% for term in terms %}
+                    {{ term }},
+                {% endfor %}
+                </h3>
+            </div>
+            <br>
             <div class="col-md-8 col-md-offset-2">
                 {% if tweets %}
                     <div class="table-responsive">

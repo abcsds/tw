@@ -1,9 +1,12 @@
 from django.shortcuts import render, redirect
 from .models import *
-
+from twitter_stream.models import FilterTerm
 
 def dashboard(request):
-    context = {'tweets': SenTweet.objects.all(), 'overall': OverallScore.objects.all()}
+    context = {'tweets': SenTweet.objects.all(),
+                'overall': OverallScore.objects.all(),
+                'terms': FilterTerm.object.all()
+                }
     return render(request, 'dashboard/dashboard.html', context)
 
 # View form to upload file
@@ -43,7 +46,31 @@ def uploadStopwords(request):
     return redirect('dashboard:dashboard')
 
 def update():
-    for tweet in SenTweet:
-        if not tweet.sentiment:
-            #update sentiment
-            pass
+    overall = 0
+    for tweet in SenTweet.objects.all():
+        if tweet.lang == 'en':
+            # Sentiment analisis
+            if not tweet.sentiment:
+                try:
+                    # for stopWord in StopWord.objects.all():
+                    #     text = text.replace(stopWord.word," ")
+                    words = tweet.text.split(" ")
+                    tweetScore = 0
+                    for word in words:
+                        for obj in WordScore.objects.all():
+                            if word == obj.word:
+                                tweetScore += obj.score
+                    tweet.sentiment = tweetScore
+                    overall += tweetScore
+                    tweet.save()
+                    import pdb; pdb.set_trace()
+                    for os in OverallScore.objects.all():
+                        if os:
+                            os.delete()
+                    m = OverallScore(score=overall)
+                    m.save()
+                except:
+                    raise NameError('Twit score will be 0')
+                    tweet.sentiment = 0
+        else:
+            tweet.delete()

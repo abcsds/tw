@@ -38,6 +38,11 @@ CREATE TABLE `dashboard_stopword` (
     `word` varchar(200) NOT NULL
 );
 
+CREATE TABLE `dashboard_overallscore` (
+    `id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    `score` integer NULL
+);
+
 
 CREATE INDEX `dashboard_sentweet_fde81f11` ON `dashboard_sentweet` (`created_at`);
 

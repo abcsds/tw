@@ -8,4 +8,4 @@ urlpatterns = [
     url(r'^stopwords/', stopwords, name='stopwords'),
     url(r'^uploadStopwords/', uploadStopwords, name='uploadStopwords'),
 ]
-update()
+# update()
