@@ -1,10 +1,11 @@
 from django.conf.urls import url
-from . import views
+from .views import *
 
 urlpatterns = [
-    url(r'^$', views.dashboard, name='dashboard'),
-    url(r'^wordlist/', views.wordlist, name='wordlist'),
-    url(r'^uploadWordlist/', views.uploadWordlist, name='uploadWordlist'),
-    url(r'^stopwords/', views.stopwords, name='stopwords'),
-    url(r'^uploadStopwords/', views.uploadStopwords, name='uploadStopwords'),
+    url(r'^$', dashboard, name='dashboard'),
+    url(r'^wordlist/', wordlist, name='wordlist'),
+    url(r'^uploadWordlist/', uploadWordlist, name='uploadWordlist'),
+    url(r'^stopwords/', stopwords, name='stopwords'),
+    url(r'^uploadStopwords/', uploadStopwords, name='uploadStopwords'),
 ]
+update()

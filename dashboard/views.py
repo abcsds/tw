@@ -41,3 +41,9 @@ def uploadStopwords(request):
         except:
             continue
     return redirect('dashboard:dashboard')
+
+def update():
+    for tweet in SenTweet:
+        if not tweet.sentiment:
+            #update sentiment
+            pass
