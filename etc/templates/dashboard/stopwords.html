@@ -59,13 +59,21 @@
             </div>
         {% endif %}
 
-        <form action="{% url 'dashboard:uploadStopwords' %}" enctype="multipart/form-data" method="POST">
-        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <form action="{% url 'dashboard:uploadStopwords' %}" enctype="multipart/form-data" method="POST">
+                    <div class="form-group">
+                        {% csrf_token %}
 
-            <label for="list">Select a file:</label>
-            <input type="FILE" name="stopwords" id="list">
-            <input type="submit" value="Upload" class="btn btn-primary btn-lg"/>
-        </form>
+                        <label for="list">Select a file:</label>
+                        <input class="form-control" type="FILE" name="stopwords" id="list">
+                    </div>
+                    <input type="submit" value="Upload" class="btn btn-primary btn-lg"/>
+
+                </form>
+            </div>
+        </div>
+
 
 
     </body>

@@ -23,7 +23,6 @@ def dashboard(request):
                                 if word == obj.word:
                                     tweetScore += obj.score
                         tweet.sentiment = tweetScore
-                        overall += tweetScore
                         tweet.save()
                     except:
                         raise NameError('Twit score will be 0')
@@ -32,6 +31,8 @@ def dashboard(request):
                 tweet.delete()
     except SenTweet.DoesNotExist:
         raise Http404("No tweets found: run stream.")
+    for tweet in SenTweet.objects.all():
+        overall += tweet.sentiment
     context = {'tweets': tweets, 'overall': overall}
     return render(request, 'dashboard/dashboard.html', context)#{'tweets': SenTweet.objects.all(), 'overall':0})
 
@@ -62,7 +63,7 @@ def uploadStopwords(request):
     if request.FILES == {}:
         return render(request, 'dashboard/stopwords.html', { 'error_message' : "File not uploaded; try again."})
     for line in request.FILES['stopwords']:
-        model = WordScore(word=line)
+        model = StopWord(word=line)
         try:
             # import pdb; pdb.set_trace()
             model.validate_unique()
